@@ -10,6 +10,36 @@ controls: true
 download: true
 addons:
   - slidev-addon-react
+# SEO Configuration
+info: |
+  ## Introduction to React - Complete Tutorial
+
+  A comprehensive React.js tutorial covering everything from basics to building real applications. Learn Virtual DOM, JSX, Components, Hooks (useState, useEffect), Props, and build practical projects like a Counter Dashboard and Todo List.
+
+  Perfect for beginners and intermediate developers looking to master modern React development with functional components and hooks.
+
+keywords: React, React.js, React Tutorial, Learn React, useState, useEffect, React Hooks, JSX, Virtual DOM, React Components, JavaScript, Web Development, Frontend Development, React for Beginners
+author: Aditi Fullstack Course
+description: Master React.js with this comprehensive tutorial. Learn Virtual DOM, JSX, Components, Hooks, Props, and build real projects. Hands-on exercises included.
+
+# Open Graph / Social Media
+seoMeta:
+  ogType: website
+  ogTitle: Introduction to React - Complete Tutorial for Beginners
+  ogDescription: Master React.js from basics to building real applications. Learn Virtual DOM, JSX, Components, Hooks (useState, useEffect), and build practical projects like Todo List.
+  # ogImage: https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&h=630&fit=crop
+  # ogUrl: https://your-site-url.netlify.app
+  # twitterCard: summary_large_image
+  # twitterTitle: Introduction to React - Complete Tutorial
+  # twitterDescription: Master React.js with hands-on examples. Learn Hooks, Components, Virtual DOM, and build real projects. Perfect for beginners!
+  # twitterImage: https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&h=630&fit=crop
+  # twitterSite: '@yourhandle'
+  # twitterCreator: '@yourhandle'
+
+# HTML attributes
+htmlAttrs:
+  lang: en
+  dir: ltr
 ---
 
 # Introduction to React
