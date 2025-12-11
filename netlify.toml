@@ -1,10 +1,5 @@
 [build]
 publish = "dist"
-command = "pnpm run build"
-
-[build.environment]
-NODE_VERSION = "20"
-NPM_FLAGS = "--version"
 
 [[redirects]]
 from = "/.well-known/*"
