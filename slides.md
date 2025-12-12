@@ -47,6 +47,7 @@ htmlAttrs:
 ---
 
 # What are we doing today 🚀
+
 - A small Counter Dashboard with vanilla JS and React
 - Setup development environment for React
 - Understand how react work
@@ -63,7 +64,8 @@ layout: two-cols
 
 # What are we building
 
-A Counter Dashboard with:
+### A Counter Dashboard with:
+
 - Three separate counters you can increase or decrease
 - Each counter starts at 0
 - A total that updates automatically
@@ -82,6 +84,7 @@ layout: two-cols
 ## Your Turn! 👨‍💻
 
 Open this CodeSandbox and complete the exercise:
+
 ### 🔗 [Dashboard Counter Vanilla](https://codesandbox.io/p/sandbox/blissful-paper-ygqnyt)
 
 <br/>
@@ -107,7 +110,7 @@ function decrement() {
 }
 
 // TODO: Implement this function
-// Hint: Query all counter values, sum them up, and 
+// Hint: Query all counter values, sum them up, and
 // update the total display
 function updateTotal() {
   // Your code here
@@ -133,7 +136,6 @@ function updateTotal() {
 
 </v-clicks>
 
-
 ---
 layout: two-cols
 ---
@@ -157,6 +159,7 @@ Open this CodeSandbox and do it again in React 👇
 ---
 
 # Let's quickly see how the codes work
+
 ```jsx {all|6-10|11-15|11-15}
 function App() {
   return (
@@ -209,7 +212,6 @@ function Counter({ label }) {
     </div>
   );
 }
-
 ```
 
 ::right::
@@ -227,24 +229,27 @@ function Counter({ label }) {
 3. **Display the count**
    - Don't worry about this part yet! We'll come back later
 
-
 </div>
 
 ---
 
 # Step 1: Install Node.js
+##
 
 <v-clicks>
 
 **Windows:**
+
 - Download from https://nodejs.org/
 - Run installer, verify with `node -v`
 
 **Mac:**
+
 - Download from https://nodejs.org/ or use `brew install node`
 - Verify with `node -v`
 
 **Linux:**
+
 ```bash
 sudo apt install nodejs npm
 ```
@@ -254,10 +259,11 @@ sudo apt install nodejs npm
 ---
 
 # Step 2: VS Code & Extensions
-
+##
 <v-clicks>
 
 **Install VS Code:**
+
 - Download from https://code.visualstudio.com/
 
 **Required Extensions:**
@@ -279,15 +285,15 @@ sudo apt install nodejs npm
 
 <v-clicks>
 
-React.js is a JavaScript library created and maintained by Meta(Facebook), used for building user interfaces, particularly single-page applications where you need a fast, interactive user experience.
+#### React.js is a JavaScript library created and maintained by Meta(Facebook), used for building user interfaces, particularly single-page applications where you need a fast, interactive user experience.
 
-*Note: React is purely client but the latest version of React allows it to run on server (Server Component)*
+_Note: React is purely client but the latest version of React allows it to run on server (Server Component)_
 
 </v-clicks>
 
 <v-clicks>
 
-## Important Distinction
+### Important Distinction
 
 1. React is the brain - it handles your component logic, state, and hooks.
 2. React DOM renders your React components to web browsers as HTML.
@@ -328,11 +334,11 @@ function App() {
 ```
 
 ```jsx
-      <div className="counters-container">
-        <Counter label="Counter 1" /> // Reused 3 times!
-        <Counter label="Counter 2" />
-        <Counter label="Counter 3" />
-      </div>
+<div className="counters-container">
+  <Counter label="Counter 1" /> // Reused 3 times!
+  <Counter label="Counter 2" />
+  <Counter label="Counter 3" />
+</div>
 ```
 ````
 
@@ -346,7 +352,7 @@ function Counter({ label }) {
   const handleIncrease = () => setCount(count + 1);
   const handleDecrease = () => {
     if (count > 0) setCount(count - 1);
-  }
+  };
   return (
     <div className="counter-card">
       <div className="counter-info">
@@ -362,15 +368,15 @@ function Counter({ label }) {
 }
 ```
 
-```jsx  
-  // State
-  const [count, setCount] = useState(0);
+```jsx
+// State
+const [count, setCount] = useState(0);
 
-  // Logic
-  const handleIncrease = () => setCount(count + 1); 
-  const handleDecrease = () => {
-    if (count > 0) setCount(count - 1);
-  }
+// Logic
+const handleIncrease = () => setCount(count + 1);
+const handleDecrease = () => {
+  if (count > 0) setCount(count - 1);
+};
 ```
 ````
 
@@ -386,27 +392,26 @@ layout: two-cols
 <v-click at="1">
 
 ## Imperative (Vanilla JS)
+
 **How to do it** - Step-by-step instructions
 
 ```js
 // Manually manipulate DOM
 function increment() {
   count++;
-  const counterElement =
-    document.getElementById('counter');
+  const counterElement = document.getElementById("counter");
   counterElement.textContent = count;
 
   // Update total manually
   updateTotal();
 }
 function updateTotal() {
-  const counters =
-    document.querySelectorAll('.counter-value');
+  const counters = document.querySelectorAll(".counter-value");
   let total = 0;
-  counters.forEach(counter => {
+  counters.forEach((counter) => {
     total += parseInt(counter.textContent);
   });
-  document.getElementById('total').textContent = total;
+  document.getElementById("total").textContent = total;
 }
 ```
 
@@ -419,6 +424,7 @@ function updateTotal() {
 <v-click at="2">
 
 ## Declarative (React)
+
 **What you want** - Describe the UI
 
 It automatically update the DOM, re-renders components and handle dependencies
@@ -433,11 +439,7 @@ function Counter() {
   };
 
   // UI automatically updates
-  return (
-    <div className="counter-value">
-      {count}
-    </div>
-  );
+  return <div className="counter-value">{count}</div>;
 }
 ```
 
@@ -445,6 +447,50 @@ function Counter() {
 
 </div>
 
+---
+layout: two-cols
+---
+
+# Virtual DOM
+
+<v-clicks>
+
+- Virtual DOM is lightweight, in-memory JavaScript copy of the actual browser's Real DOM, used by frameworks like React and Vue to efficiently update user interfaces by minimizing direct, slow manipulations of the real DOM.
+
+- We can interact with virtual DOM with JSX (JavaScript XML) to interact with Virtual DOM.
+
+</v-clicks>
+
+::right::
+
+<v-clicks>
+  <div class="mt-16">
+
+  ```jsx
+  // JSX Example
+  <div className="counter-card">
+    <div className="counter-info">
+      <span className="counter-label">{label}</span>
+      <span className="counter-value">{count}</span>
+    </div>
+    <div className="counter-controls">
+      <button 
+        className="btn-decrease" 
+        onClick={handleDecrease}
+      >
+        −
+      </button>
+      <button 
+        className="btn-increase" 
+        onClick={handleIncrease}
+      >
+        +
+      </button>
+    </div>
+  </div>
+  ```
+  </div>
+</v-clicks>
 
 ---
 
@@ -454,7 +500,7 @@ function Counter() {
 
 <div class="text-center">
 <h3>Virtual DOM</h3>
-<svg width="250" height="300" viewBox="0 0 250 300">
+<svg width="250" height="260" viewBox="0 0 250 280">
   <!-- Root node -->
   <circle cx="125" cy="50" r="30" fill="#667eea" stroke="#333" stroke-width="2"/>
   <text x="125" y="55" text-anchor="middle" fill="white" font-weight="bold">div</text>
@@ -481,7 +527,7 @@ function Counter() {
 
 <div class="text-center">
 <h3>Real DOM</h3>
-<svg width="250" height="300" viewBox="0 0 250 300">
+<svg width="250" height="260" viewBox="0 0 250 280">
   <!-- Root node -->
   <circle cx="125" cy="50" r="30" fill="#667eea" stroke="#333" stroke-width="2"/>
   <text x="125" y="55" text-anchor="middle" fill="white" font-weight="bold">div</text>
@@ -509,14 +555,14 @@ function Counter() {
 </div>
 
 <div class="mt-8">
-<ul>
-<v-click at="1">
-<li class="text-lg mb-2">An <strong>&lt;a&gt;</strong> tag is added to the Virtual DOM</li>
-</v-click>
-<v-click at="2">
-<li class="text-lg">React detects the change and updates the Real DOM accordingly</li>
-</v-click>
-</ul>
+  <ul>
+    <v-click at="1">
+      <li class="text-lg mb-2">An <strong>&lt;a&gt;</strong> tag is added to the Virtual DOM</li>
+    </v-click>
+    <v-click at="2">
+      <li class="text-lg">React detects the change and updates the Real DOM accordingly</li>
+    </v-click>
+  </ul>
 </div>
 
 <style>
@@ -535,35 +581,16 @@ function Counter() {
 </style>
 
 ---
-layout: two-cols
----
 
 # How Virtual DOM Works
 
-## Traditional DOM
-<v-clicks>
-
-1. Change data
-2. Update entire DOM
-3. Browser recalculates
-4. Repaint everything
-5. **SLOW** for complex UIs
-
-</v-clicks>
-
-::right::
-
-<div v-click>
-
-## React's Virtual DOM
-
-1. Change data
-2. Update Virtual DOM (in memory)
-3. Diff with previous Virtual DOM
-4. Update only changed parts in real DOM
-5. **FAST** and efficient!
-
-</div>
+|  | Traditional DOM | React's Virtual DOM |
+|------|----------------|---------------------|
+| 1 | Change data | Change data |
+| 2 | Update entire DOM | Update Virtual DOM (in memory) |
+| 3 | Browser recalculates | Diff with previous Virtual DOM |
+| 4 | Repaint everything | Update only changed parts in real DOM |
+| 5 | **SLOW** for complex UIs | **FAST** and efficient! |
 
 ---
 
@@ -575,15 +602,12 @@ JSX lets you write HTML-like code in JavaScript
 <div>
 
 ## Without JSX (verbose)
+
 ```js
 React.createElement(
-  'div',
-  { className: 'container' },
-  React.createElement(
-    'h1',
-    null,
-    'Hello World'
-  )
+  "div",
+  { className: "container" },
+  React.createElement("h1", null, "Hello World"),
 );
 ```
 
@@ -591,6 +615,7 @@ React.createElement(
 <div>
 
 ## With JSX (clean)
+
 ```jsx
 <div className="container">
   <h1>Hello World</h1>
@@ -647,8 +672,9 @@ function Greeting() {
 <div>
 
 ## Class Components (Old way)
+
 ```jsx
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class Welcome extends Component {
   constructor(props) {
@@ -658,18 +684,16 @@ class Welcome extends Component {
 
   increment = () => {
     this.setState({
-      count: this.state.count + 1
+      count: this.state.count + 1,
     });
-  }
+  };
 
   render() {
     return (
       <div>
         <h1>{this.props.name}</h1>
         <p>{this.state.count}</p>
-        <button onClick={this.increment}>
-          Click
-        </button>
+        <button onClick={this.increment}>Click</button>
       </div>
     );
   }
@@ -680,8 +704,9 @@ class Welcome extends Component {
 <div>
 
 ## Functional Components (Modern)
+
 ```jsx
-import { useState } from 'react';
+import { useState } from "react";
 
 function Welcome({ name }) {
   const [count, setCount] = useState(0);
@@ -694,9 +719,7 @@ function Welcome({ name }) {
     <div>
       <h1>{name}</h1>
       <p>{count}</p>
-      <button onClick={increment}>
-        Click
-      </button>
+      <button onClick={increment}>Click</button>
     </div>
   );
 }
@@ -788,6 +811,7 @@ layout: center
 ---
 
 # React Hooks
+
 Making Functional Components Powerful
 
 ---
@@ -802,6 +826,7 @@ Making Functional Components Powerful
 - Start with the word "use"
 
 ## Common Built-in Hooks
+
 - `useState` - Add state to components
 - `useEffect` - Perform side effects
 - `useContext` - Access context
@@ -820,7 +845,7 @@ Today we'll focus on **useState** and **useEffect**
 Managing state in functional components
 
 ```jsx
-import { useState } from 'react';
+import { useState } from "react";
 
 function Counter() {
   // Declare a state variable
@@ -833,15 +858,9 @@ function Counter() {
   return (
     <div>
       <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>
-        Increment
-      </button>
-      <button onClick={() => setCount(count - 1)}>
-        Decrement
-      </button>
-      <button onClick={() => setCount(0)}>
-        Reset
-      </button>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+      <button onClick={() => setCount(count - 1)}>Decrement</button>
+      <button onClick={() => setCount(0)}>Reset</button>
     </div>
   );
 }
@@ -884,7 +903,7 @@ function FormExample() {
 Performing side effects in components
 
 ```jsx
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 function Example() {
   const [count, setCount] = useState(0);
@@ -896,7 +915,7 @@ function Example() {
 
   // Runs only once on mount (empty dependency array)
   useEffect(() => {
-    console.log('Component mounted');
+    console.log("Component mounted");
   }, []);
 
   // Runs when count changes
@@ -906,7 +925,7 @@ function Example() {
 
   // Cleanup function
   useEffect(() => {
-    const timer = setInterval(() => console.log('tick'), 1000);
+    const timer = setInterval(() => console.log("tick"), 1000);
     return () => clearInterval(timer); // Cleanup on unmount
   }, []);
 
@@ -921,15 +940,17 @@ function Example() {
 <v-clicks>
 
 ## 1. Fetching Data
+
 ```jsx
 useEffect(() => {
-  fetch('https://api.example.com/data')
-    .then(res => res.json())
-    .then(data => setData(data));
+  fetch("https://api.example.com/data")
+    .then((res) => res.json())
+    .then((data) => setData(data));
 }, []);
 ```
 
 ## 2. Subscriptions
+
 ```jsx
 useEffect(() => {
   const subscription = subscribeToData();
@@ -938,9 +959,10 @@ useEffect(() => {
 ```
 
 ## 3. DOM Manipulation
+
 ```jsx
 useEffect(() => {
-  const element = document.getElementById('special');
+  const element = document.getElementById("special");
   element.focus();
 }, []);
 ```
@@ -954,7 +976,7 @@ useEffect(() => {
 Let's build a simple user profile component together
 
 ```jsx {all|1-2|4-6|8-13|15-17|19-30|all}
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 function UserProfile() {
   const [user, setUser] = useState(null);
@@ -962,10 +984,10 @@ function UserProfile() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/users/1')
-      .then(res => res.json())
-      .then(data => setUser(data))
-      .catch(err => setError(err.message))
+    fetch("https://jsonplaceholder.typicode.com/users/1")
+      .then((res) => res.json())
+      .then((data) => setUser(data))
+      .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   }, []);
 
@@ -977,9 +999,11 @@ function UserProfile() {
       <h2>{user.name}</h2>
       <p>Email: {user.email}</p>
       <p>Phone: {user.phone}</p>
-      <button onClick={() => {
-        setUser({ ...user, name: 'Updated Name' });
-      }}>
+      <button
+        onClick={() => {
+          setUser({ ...user, name: "Updated Name" });
+        }}
+      >
         Update Name
       </button>
     </div>
@@ -992,7 +1016,10 @@ layout: center
 class: text-center
 ---
 
+---
+
 # Hands-On Project
+
 Building a Todo List Application
 
 ---
@@ -1002,6 +1029,7 @@ Building a Todo List Application
 <v-clicks>
 
 ## Features to Implement
+
 1. Add new todos
 2. Display list of todos
 3. Mark todos as complete/incomplete
@@ -1010,6 +1038,7 @@ Building a Todo List Application
 6. Persist todos in localStorage
 
 ## Concepts We'll Use
+
 - `useState` for managing todos
 - `useEffect` for localStorage
 - Props for passing data
@@ -1026,7 +1055,7 @@ Building a Todo List Application
 ```jsx
 function TodoApp() {
   const [todos, setTodos] = useState([]);
-  const [filter, setFilter] = useState('all');
+  const [filter, setFilter] = useState("all");
 
   return (
     <div className="todo-app">
@@ -1037,10 +1066,7 @@ function TodoApp() {
         onToggle={handleToggle}
         onDelete={handleDelete}
       />
-      <TodoFilter
-        current={filter}
-        onChange={setFilter}
-      />
+      <TodoFilter current={filter} onChange={setFilter} />
     </div>
   );
 }
@@ -1057,14 +1083,14 @@ We'll break this down into smaller components!
 # Todo List: State Management
 
 ```jsx
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 function TodoApp() {
   const [todos, setTodos] = useState([]);
 
   // Load from localStorage on mount
   useEffect(() => {
-    const saved = localStorage.getItem('todos');
+    const saved = localStorage.getItem("todos");
     if (saved) {
       setTodos(JSON.parse(saved));
     }
@@ -1072,14 +1098,14 @@ function TodoApp() {
 
   // Save to localStorage when todos change
   useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
+    localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
   const addTodo = (text) => {
     const newTodo = {
       id: Date.now(),
       text: text,
-      completed: false
+      completed: false,
     };
     setTodos([...todos, newTodo]);
   };
@@ -1099,22 +1125,24 @@ const addTodo = (text) => {
 };
 
 // Read (filter)
-const filteredTodos = todos.filter(todo => {
-  if (filter === 'active') return !todo.completed;
-  if (filter === 'completed') return todo.completed;
+const filteredTodos = todos.filter((todo) => {
+  if (filter === "active") return !todo.completed;
+  if (filter === "completed") return todo.completed;
   return true; // 'all'
 });
 
 // Update
 const toggleTodo = (id) => {
-  setTodos(todos.map(todo =>
-    todo.id === id ? { ...todo, completed: !todo.completed } : todo
-  ));
+  setTodos(
+    todos.map((todo) =>
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo,
+    ),
+  );
 };
 
 // Delete
 const deleteTodo = (id) => {
-  setTodos(todos.filter(todo => todo.id !== id));
+  setTodos(todos.filter((todo) => todo.id !== id));
 };
 ```
 
@@ -1123,16 +1151,16 @@ const deleteTodo = (id) => {
 # Todo List: TodoInput Component
 
 ```jsx
-import { useState } from 'react';
+import { useState } from "react";
 
 function TodoInput({ onAdd }) {
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (text.trim()) {
       onAdd(text);
-      setText('');
+      setText("");
     }
   };
 
@@ -1165,7 +1193,7 @@ function TodoItem({ todo, onToggle, onDelete }) {
       />
       <span
         style={{
-          textDecoration: todo.completed ? 'line-through' : 'none'
+          textDecoration: todo.completed ? "line-through" : "none",
         }}
       >
         {todo.text}
@@ -1178,7 +1206,7 @@ function TodoItem({ todo, onToggle, onDelete }) {
 function TodoList({ todos, onToggle, onDelete }) {
   return (
     <div className="todo-list">
-      {todos.map(todo => (
+      {todos.map((todo) => (
         <TodoItem
           key={todo.id}
           todo={todo}
@@ -1198,6 +1226,7 @@ function TodoList({ todos, onToggle, onDelete }) {
 <div class="text-center mt-20">
 
 ## Open CodeSandbox
+
 ### https://codesandbox.io/
 
 <v-click>
