@@ -234,6 +234,7 @@ function Counter({ label }) {
 ---
 
 # Step 1: Install Node.js
+
 ##
 
 <v-clicks>
@@ -259,7 +260,9 @@ sudo apt install nodejs npm
 ---
 
 # Step 2: VS Code & Extensions
+
 ##
+
 <v-clicks>
 
 **Install VS Code:**
@@ -457,38 +460,33 @@ layout: two-cols
 
 - Virtual DOM is lightweight, in-memory JavaScript copy of the actual browser's Real DOM, used by frameworks like React and Vue to efficiently update user interfaces by minimizing direct, slow manipulations of the real DOM.
 
-- We can interact with virtual DOM with JSX (JavaScript XML) to interact with Virtual DOM.
+- We can interact with virtual DOM with JSX (JavaScript XML) to interact with Virtual DOM. JSX lets you write <span v-mark="{color: 'red', at: '2'}">HTML in JavaScript</span> with <span v-mark="{color: 'red', at: '2'}">JavaScript</span>
 
 </v-clicks>
 
 ::right::
 
 <v-clicks>
-  <div class="mt-16">
+  <div class="mt-16 ml-8">
 
-  ```jsx
-  // JSX Example
-  <div className="counter-card">
-    <div className="counter-info">
-      <span className="counter-label">{label}</span>
-      <span className="counter-value">{count}</span>
-    </div>
-    <div className="counter-controls">
-      <button 
-        className="btn-decrease" 
-        onClick={handleDecrease}
-      >
-        −
-      </button>
-      <button 
-        className="btn-increase" 
-        onClick={handleIncrease}
-      >
-        +
-      </button>
-    </div>
+```jsx
+// JSX Example
+<div className="counter-card">
+  <div className="counter-info">
+    <span className="counter-label">{label}</span>
+    <span className="counter-value">{count}</span>
   </div>
-  ```
+  <div className="counter-controls">
+    <button className="btn-decrease" onClick={handleDecrease}>
+      −
+    </button>
+    <button className="btn-increase" onClick={handleIncrease}>
+      +
+    </button>
+  </div>
+</div>
+```
+
   </div>
 </v-clicks>
 
@@ -584,22 +582,19 @@ layout: two-cols
 
 # How Virtual DOM Works
 
-|  | Traditional DOM | React's Virtual DOM |
-|------|----------------|---------------------|
-| 1 | Change data | Change data |
-| 2 | Update entire DOM | Update Virtual DOM (in memory) |
-| 3 | Browser recalculates | Diff with previous Virtual DOM |
-| 4 | Repaint everything | Update only changed parts in real DOM |
-| 5 | **SLOW** for complex UIs | **FAST** and efficient! |
+|     | Traditional DOM          | React's Virtual DOM                   |
+| --- | ------------------------ | ------------------------------------- |
+| 1   | Change data              | Change data                           |
+| 2   | Update entire DOM        | Update Virtual DOM (in memory)        |
+| 3   | Browser recalculates     | Diff with previous Virtual DOM        |
+| 4   | Repaint everything       | Update only changed parts in real DOM |
+| 5   | **SLOW** for complex UIs | **FAST** and efficient!               |
 
 ---
 
-# JSX: JavaScript XML
+# Fun Fact
 
-JSX lets you write HTML-like code in JavaScript
-
-<div grid="~ cols-2 gap-4">
-<div>
+You can actually interact with Virtual DOM without JSX... I wouldn't recommend doing so 🤢🤢
 
 ## Without JSX (verbose)
 
@@ -611,8 +606,7 @@ React.createElement(
 );
 ```
 
-</div>
-<div>
+<br />
 
 ## With JSX (clean)
 
@@ -622,14 +616,165 @@ React.createElement(
 </div>
 ```
 
-</div>
-</div>
-
 <v-click>
 
-JSX is **compiled** to JavaScript before running in the browser
+JSX is <span v-mark="{color: 'red', at: '1'}">compiled</span> to JavaScript before running in the browser
 
 </v-click>
+
+---
+
+# How browser reads JSX
+
+<div class="flex justify-center items-center mt-8">
+<svg width="100%" height="120" viewBox="0 0 1000 120">
+  <!-- JSX Box -->
+  <rect x="20" y="20" width="160" height="80" fill="#667eea" stroke="#333" stroke-width="2" rx="5"/>
+  <text x="100" y="55" text-anchor="middle" fill="white" font-weight="bold" font-size="5">JSX</text>
+  <text x="100" y="75" text-anchor="middle" fill="white" font-size="4">&lt;div&gt;Hello&lt;/div&gt;</text>
+
+  <!-- Arrow 1 -->
+  <g v-if="$slidev.nav.clicks >= 1">
+    <line x1="180" y1="60" x2="250" y2="60" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <text x="215" y="48" text-anchor="middle" fill="#333" font-size="4" font-weight="bold">Babel</text>
+  </g>
+
+  <!-- Compiled JS Box -->
+  <g v-if="$slidev.nav.clicks >= 2">
+    <rect x="250" y="20" width="200" height="80" fill="#764abc" stroke="#333" stroke-width="2" rx="5"/>
+    <text x="350" y="48" text-anchor="middle" fill="white" font-weight="bold" font-size="5">JavaScript</text>
+    <text x="350" y="67" text-anchor="middle" fill="white" font-size="4">React.createElement(</text>
+    <text x="350" y="82" text-anchor="middle" fill="white" font-size="4">'div', null, 'Hello')</text>
+  </g>
+
+  <!-- Arrow 2 -->
+  <g v-if="$slidev.nav.clicks >= 3">
+    <line x1="450" y1="60" x2="540" y2="60" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <text x="495" y="48" text-anchor="middle" fill="#333" font-size="4" font-weight="bold">Processes</text>
+  </g>
+
+  <!-- React Box -->
+  <g v-if="$slidev.nav.clicks >= 4">
+    <rect x="540" y="20" width="160" height="80" fill="#61dafb" stroke="#333" stroke-width="2" rx="5"/>
+    <text x="620" y="55" text-anchor="middle" fill="#333" font-weight="bold" font-size="5">React</text>
+    <text x="620" y="75" text-anchor="middle" fill="#333" font-size="4">Virtual DOM</text>
+  </g>
+
+  <!-- Arrow 3 -->
+  <g v-if="$slidev.nav.clicks >= 5">
+    <line x1="700" y1="60" x2="790" y2="60" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <text x="745" y="48" text-anchor="middle" fill="#333" font-size="4" font-weight="bold">Updates</text>
+  </g>
+
+  <!-- Browser DOM Box -->
+  <g v-if="$slidev.nav.clicks >= 6">
+    <rect x="790" y="20" width="160" height="80" fill="#51cf66" stroke="#333" stroke-width="2" rx="5"/>
+    <text x="870" y="55" text-anchor="middle" fill="white" font-weight="bold" font-size="5">Browser</text>
+    <text x="870" y="75" text-anchor="middle" fill="white" font-size="4">Real DOM</text>
+  </g>
+
+  <!-- Arrow definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+    </marker>
+  </defs>
+</svg>
+</div>
+
+<div class="mt-6 text-sm">
+<ul>
+  <v-click at="1">
+    <li class="mb-2"><strong>Step 1: Babel Compilation</strong><br/>
+    JSX syntax is <span class="text-blue-400">not valid JavaScript</span>. Babel transpiler converts JSX into pure JavaScript that browsers can understand.</li>
+  </v-click>
+  <v-click at="2">
+    <li class="mb-2"><strong>Step 2: React.createElement()</strong><br/>
+    Each JSX element becomes a <code>React.createElement(type, props, children)</code> function call. This creates JavaScript objects.</li>
+  </v-click>
+  <v-click at="4">
+    <li class="mb-2"><strong>Step 3: Virtual DOM Creation</strong><br/>
+    React processes these function calls and builds a lightweight JavaScript representation of the UI (Virtual DOM tree).</li>
+  </v-click>
+  <v-click at="6">
+    <li class="mb-2"><strong>Step 4: Real DOM Update</strong><br/>
+    React compares the new Virtual DOM with the previous one (diffing), then efficiently updates only the changed parts in the browser's Real DOM.</li>
+  </v-click>
+</ul>
+</div>
+
+---
+
+# JSX Transformation: Complete Example
+
+<style>
+.code-small pre, .code-small code {
+  font-size: 0.65rem !important;
+}
+</style>
+
+<div class="grid grid-cols-2 gap-4 code-small">
+
+<div v-click>
+
+**Step 1: You Write JSX**
+```jsx
+const element = (
+  <div className="greeting">
+    <h1>Hello, {name}!</h1>
+    <p>Welcome to React</p>
+  </div>
+);
+```
+
+</div>
+
+<div v-click>
+
+**Step 2: Babel Compiles to JS**
+```js
+const element = React.createElement(
+  'div',
+  { className: 'greeting' },
+  React.createElement('h1', null, 'Hello, ', name, '!'),
+  React.createElement('p', null, 'Welcome to React')
+);
+```
+
+</div>
+
+<div v-click>
+
+**Step 3: React Creates Virtual DOM Object**
+```js
+{
+  type: 'div',
+  props: {
+    className: 'greeting',
+    children: [
+      { type: 'h1', props: { children: ['Hello, ', name, '!'] } },
+      { type: 'p', props: { children: ['Welcome to React'] } }
+    ]
+  }
+}
+```
+
+</div>
+
+<div v-click>
+
+**Step 4: Browser Gets Real DOM**
+```html
+<div class="greeting">
+  <h1>Hello, John!</h1>
+  <p>Welcome to React</p>
+</div>
+```
+<div class="mt-2 text-green-400">✓ Rendered in browser!</div>
+
+</div>
+
+</div>
 
 ---
 
@@ -645,81 +790,254 @@ JSX is **compiled** to JavaScript before running in the browser
 
 </v-clicks>
 
-<div v-click>
+---
+
+# JSX Rule 1: Use `className` instead of `class`
+
+In HTML, you use `class` for CSS classes. In JSX, use `className` because `class` is a reserved word in JavaScript.
+
+<div class="grid grid-cols-2 gap-4 mt-8">
+<div>
+
+### HTML (Don't use in JSX)
+
+```html
+<div class="container">
+  <button class="btn btn-primary">
+    Click me
+  </button>
+</div>
+```
+
+</div>
+<div>
+
+### JSX (Correct)
 
 ```jsx
-function Greeting() {
-  const name = "Student";
-  const isLoggedIn = true;
-
+function Card() {
   return (
-    <div>
-      <h1>Hello {name}!</h1>
-      {isLoggedIn && <p>Welcome back!</p>}
-      {isLoggedIn ? <button>Logout</button> : <button>Login</button>}
+    <div className="container">
+      <button className="btn btn-primary">
+        Click me
+      </button>
     </div>
   );
 }
 ```
 
 </div>
+</div>
 
 ---
 
-# Class vs Functional Components
+# JSX Rule 2: Use `htmlFor` instead of `for`
 
-<div grid="~ cols-2 gap-4">
+The `for` attribute in HTML labels becomes `htmlFor` in JSX because `for` is a reserved word in JavaScript (used in loops).
+
+<div class="grid grid-cols-2 gap-4 mt-8">
 <div>
 
-## Class Components (Old way)
+### HTML (Don't use in JSX)
 
-```jsx
-import React, { Component } from "react";
+```html
+<label for="email">Email:</label>
+<input id="email" type="email" />
 
-class Welcome extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { count: 0 };
-  }
-
-  increment = () => {
-    this.setState({
-      count: this.state.count + 1,
-    });
-  };
-
-  render() {
-    return (
-      <div>
-        <h1>{this.props.name}</h1>
-        <p>{this.state.count}</p>
-        <button onClick={this.increment}>Click</button>
-      </div>
-    );
-  }
-}
+<label for="password">Password:</label>
+<input id="password" type="password" />
 ```
 
 </div>
 <div>
 
-## Functional Components (Modern)
+### JSX (Correct)
 
 ```jsx
-import { useState } from "react";
+function LoginForm() {
+  return (
+    <form>
+      <label htmlFor="email">Email:</label>
+      <input id="email" type="email" />
 
-function Welcome({ name }) {
-  const [count, setCount] = useState(0);
+      <label htmlFor="password">Password:</label>
+      <input id="password" type="password" />
+    </form>
+  );
+}
+```
 
-  const increment = () => {
-    setCount(count + 1);
-  };
+</div>
+</div>
+
+---
+
+# JSX Rule 3: All tags must be closed
+
+In HTML, some tags are self-closing. In JSX, **every** tag must be explicitly closed with `/>` or a closing tag.
+
+<div class="grid grid-cols-2 gap-4 mt-8">
+<div>
+
+### HTML (Don't use in JSX)
+
+```html
+<img src="photo.jpg">
+<input type="text">
+<br>
+<hr>
+<meta charset="UTF-8">
+```
+
+</div>
+<div>
+
+### JSX (Correct)
+
+```jsx
+function Profile() {
+  return (
+    <div>
+      <img src="photo.jpg" />
+      <input type="text" />
+      <br />
+      <hr />
+      <meta charSet="UTF-8" />
+    </div>
+  );
+}
+```
+
+</div>
+</div>
+
+---
+
+# JSX Rule 4: Use `{}` for JavaScript expressions
+
+Curly braces `{}` let you embed JavaScript expressions directly in your JSX.
+
+```jsx
+function Greeting() {
+  const name = "Alice";
+  const isLoggedIn = true;
 
   return (
     <div>
-      <h1>{name}</h1>
-      <p>{count}</p>
-      <button onClick={increment}>Click</button>
+      <h1>Hello, {name}!</h1>                              {/* Variable */}
+      <p>Status: {isLoggedIn ? "Online" : "Offline"}</p>   {/* Ternary */}
+      {isLoggedIn && <button>Logout</button>}              {/* Conditional */}
+    </div>
+  );
+}
+```
+
+---
+
+# JSX Rule 5: Single parent element component
+
+A component can only return **one** parent element. Wrap with `<div>` or Fragment (`<>...</>`).
+
+<div class="grid grid-cols-2 gap-4 mt-4">
+<div>
+
+### Wrong
+
+```jsx
+function Card() {
+  return (
+    <h1>Title</h1>
+    <p>Description</p>
+  );
+}
+// Error: Adjacent JSX elements
+```
+
+</div>
+<div>
+
+### Correct
+
+```jsx
+// Using div
+function Card() {
+  return (
+    <div>
+      <h1>Title</h1>
+      <p>Description</p>
+    </div>
+  );
+}
+
+// Using Fragment (no extra DOM)
+function Card() {
+  return (
+    <>
+      <h1>Title</h1>
+      <p>Description</p>
+    </>
+  );
+}
+```
+
+</div>
+</div>
+
+---
+layout: two-cols
+---
+
+# Exercise: Todo App JSX Skeleton
+
+Let's practice JSX by building the structure of a Todo app!
+
+**Setup:**
+```bash
+npx create-react-app todo-app
+cd todo-app
+npm start
+```
+
+**Your task:** Create these 4 components with static JSX (no state, no props yet - just the structure)
+
+::right::
+
+<div style="padding-left: 1rem;">
+
+```
+TodoApp
+├── TodoInput (form + input + button)
+└── TodoList
+    ├── TodoItem (checkbox + text + delete btn)
+    ├── TodoItem
+    └── TodoItem
+```
+
+<v-click>
+
+**Hints:**
+- Use `className` for styling
+- Use `htmlFor` on labels
+- Close all tags: `<input />`
+- Each component returns one parent
+
+</v-click>
+
+</div>
+
+---
+
+# Exercise: TodoApp Component
+
+The main container that holds everything
+
+```jsx
+function TodoApp() {
+  return (
+    <div className="todo-app">
+      <h1>My Todo List</h1>
+      <TodoInput />
+      <TodoList />
     </div>
   );
 }
@@ -727,21 +1045,87 @@ function Welcome({ name }) {
 
 <v-click>
 
-**We'll focus on Functional Components!**
+**Try it yourself first, then check the solution!**
 
 </v-click>
 
-</div>
-</div>
+---
+
+# Exercise: TodoInput Component
+
+A form with an input field and submit button
+
+```jsx
+function TodoInput() {
+  return (
+    <form className="todo-form">
+      <label htmlFor="todo-input">New Task:</label>
+      <input
+        id="todo-input"
+        type="text"
+        placeholder="What needs to be done?"
+      />
+      <button type="submit">Add</button>
+    </form>
+  );
+}
+```
+
+---
+
+# Exercise: TodoItem Component
+
+A single todo item with checkbox, text, and delete button
+
+```jsx
+function TodoItem() {
+  return (
+    <div className="todo-item">
+      <input type="checkbox" id="todo-1" />
+      <label htmlFor="todo-1">Sample todo item</label>
+      <button className="btn-delete">Delete</button>
+    </div>
+  );
+}
+```
+
+---
+
+# Exercise: TodoList Component
+
+Container that renders multiple TodoItem components
+
+```jsx
+function TodoList() {
+  return (
+    <div className="todo-list">
+      <TodoItem />
+      <TodoItem />
+      <TodoItem />
+    </div>
+  );
+}
+```
+
+<v-click>
+
+**What's missing?**
+- Items are hardcoded (we'll fix with Props)
+- No interactivity (we'll fix with useState)
+- No data persistence (we'll fix with useEffect)
+
+**We'll add these features after learning Props and Hooks!**
+
+</v-click>
 
 ---
 
 # Props: Passing Data to Components
 
-Props (properties) are how we pass data from parent to child components
+Props (properties) pass data from parent to child components
 
 ```jsx
-// Parent Component
+// Parent passes props
 function App() {
   return (
     <div>
@@ -751,17 +1135,7 @@ function App() {
   );
 }
 
-// Child Component
-function Greeting(props) {
-  return (
-    <div>
-      <h2>Hello {props.name}!</h2>
-      <p>You are {props.age} years old.</p>
-    </div>
-  );
-}
-
-// Or use destructuring (cleaner)
+// Child receives props (use destructuring)
 function Greeting({ name, age }) {
   return (
     <div>
@@ -771,6 +1145,41 @@ function Greeting({ name, age }) {
   );
 }
 ```
+
+---
+
+# Passing Functions to Child
+
+Pass functions to let child components update parent's state
+
+```jsx
+import { useState } from "react";
+
+// Parent owns the state
+function App() {
+  const [count, setCount] = useState(0);
+
+  const handleIncrement = () => setCount(count + 1);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <Child onIncrement={handleIncrement} />
+    </div>
+  );
+}
+
+// Child calls parent's function to update state
+function Child({ onIncrement }) {
+  return <button onClick={onIncrement}>Add +1</button>;
+}
+```
+
+<v-click>
+
+**Child "talks back" to parent by calling the passed function!**
+
+</v-click>
 
 ---
 
@@ -1012,10 +1421,83 @@ function UserProfile() {
 ```
 
 ---
+
+# Class vs Functional Components
+
+Now that you understand Hooks, let's compare the old way vs modern way
+
+<div grid="~ cols-2 gap-4">
+<div>
+
+## Class Components (Old way)
+
+```jsx
+import React, { Component } from "react";
+
+class Welcome extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { count: 0 };
+  }
+
+  increment = () => {
+    this.setState({
+      count: this.state.count + 1,
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <h1>{this.props.name}</h1>
+        <p>{this.state.count}</p>
+        <button onClick={this.increment}>Click</button>
+      </div>
+    );
+  }
+}
+```
+
+</div>
+<div>
+
+## Functional Components (Modern)
+
+```jsx
+import { useState } from "react";
+
+function Welcome({ name }) {
+  const [count, setCount] = useState(0);
+
+  const increment = () => {
+    setCount(count + 1);
+  };
+
+  return (
+    <div>
+      <h1>{name}</h1>
+      <p>{count}</p>
+      <button onClick={increment}>Click</button>
+    </div>
+  );
+}
+```
+
+<v-click>
+
+**Why Functional + Hooks?**
+- Less boilerplate code
+- Easier to read and test
+- Better code reuse with custom hooks
+
+</v-click>
+
+</div>
+</div>
+
+---
 layout: center
 class: text-center
----
-
 ---
 
 # Hands-On Project
