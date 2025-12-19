@@ -10,7 +10,7 @@ Understanding React's Secret Weapon
 layout: two-cols
 ---
 
-# Virtual DOM
+# What is Virtual DOM
 
 <v-clicks>
 
