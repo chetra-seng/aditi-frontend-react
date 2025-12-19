@@ -27,8 +27,8 @@ seoMeta:
   ogType: website
   ogTitle: Introduction to React - Complete Tutorial for Beginners
   ogDescription: Master React.js from basics to building real applications. Learn Virtual DOM, JSX, Components, Hooks (useState, useEffect), and build practical projects like Todo List.
-  # ogImage: https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&h=630&fit=crop
-  # ogUrl: https://your-site-url.netlify.app
+  ogImage: https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&h=630&fit=crop
+  ogUrl: https://aditi-frontend-react.chetraseng.com
   # twitterCard: summary_large_image
   # twitterTitle: Introduction to React - Complete Tutorial
   # twitterDescription: Master React.js with hands-on examples. Learn Hooks, Components, Virtual DOM, and build real projects. Perfect for beginners!
