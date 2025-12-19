@@ -635,8 +635,8 @@ JSX is <span v-mark="{color: 'red', at: '1'}">compiled</span> to JavaScript befo
 
   <!-- Arrow 1 -->
   <g v-if="$slidev.nav.clicks >= 1">
-    <line x1="180" y1="60" x2="250" y2="60" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
-    <text x="215" y="48" text-anchor="middle" fill="#333" font-size="4" font-weight="bold">Babel</text>
+    <line x1="180" y1="60" x2="250" y2="60" stroke="white" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <text x="215" y="48" text-anchor="middle" fill="white" font-size="4" font-weight="bold">Babel</text>
   </g>
 
   <!-- Compiled JS Box -->
@@ -649,8 +649,8 @@ JSX is <span v-mark="{color: 'red', at: '1'}">compiled</span> to JavaScript befo
 
   <!-- Arrow 2 -->
   <g v-if="$slidev.nav.clicks >= 3">
-    <line x1="450" y1="60" x2="540" y2="60" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
-    <text x="495" y="48" text-anchor="middle" fill="#333" font-size="4" font-weight="bold">Processes</text>
+    <line x1="450" y1="60" x2="540" y2="60" stroke="white" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <text x="495" y="48" text-anchor="middle" fill="white" font-size="4" font-weight="bold">Processes</text>
   </g>
 
   <!-- React Box -->
@@ -662,8 +662,8 @@ JSX is <span v-mark="{color: 'red', at: '1'}">compiled</span> to JavaScript befo
 
   <!-- Arrow 3 -->
   <g v-if="$slidev.nav.clicks >= 5">
-    <line x1="700" y1="60" x2="790" y2="60" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
-    <text x="745" y="48" text-anchor="middle" fill="#333" font-size="4" font-weight="bold">Updates</text>
+    <line x1="700" y1="60" x2="790" y2="60" stroke="white" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <text x="745" y="48" text-anchor="middle" fill="white" font-size="4" font-weight="bold">Updates</text>
   </g>
 
   <!-- Browser DOM Box -->
@@ -676,7 +676,7 @@ JSX is <span v-mark="{color: 'red', at: '1'}">compiled</span> to JavaScript befo
   <!-- Arrow definition -->
   <defs>
     <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+      <polygon points="0 0, 10 3, 0 6" fill="white"/>
     </marker>
   </defs>
 </svg>
@@ -984,60 +984,58 @@ function Card() {
 </div>
 
 ---
-layout: two-cols
+layout: center
 ---
 
-# Exercise: Todo App JSX Skeleton
+# Styling React Components
 
-Let's practice JSX by building the structure of a Todo app!
+Different ways to write CSS in React
 
-**Setup:**
-```bash
-npx create-react-app todo-app
-cd todo-app
-npm start
+---
+
+# CSS in React: External Stylesheets
+
+The most common way to style React components - import CSS files directly.
+
+<div class="grid grid-cols-2 gap-4 mt-4">
+<div>
+
+### styles.css
+
+```css
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
 ```
-
-**Your task:** Create these 4 components with static JSX (no state, no props yet - just the structure)
-
-::right::
-
-<div style="padding-left: 1rem;">
-
-```
-TodoApp
-├── TodoInput (form + input + button)
-└── TodoList
-    ├── TodoItem (checkbox + text + delete btn)
-    ├── TodoItem
-    └── TodoItem
-```
-
-<v-click>
-
-**Hints:**
-- Use `className` for styling
-- Use `htmlFor` on labels
-- Close all tags: `<input />`
-- Each component returns one parent
-
-</v-click>
 
 </div>
+<div>
 
----
-
-# Exercise: TodoApp Component
-
-The main container that holds everything
+### Component.jsx
 
 ```jsx
-function TodoApp() {
+import './styles.css';
+
+function Card() {
   return (
-    <div className="todo-app">
-      <h1>My Todo List</h1>
-      <TodoInput />
-      <TodoList />
+    <div className="container">
+      <button className="btn btn-primary">
+        Click me
+      </button>
     </div>
   );
 }
@@ -1045,63 +1043,195 @@ function TodoApp() {
 
 <v-click>
 
-**Try it yourself first, then check the solution!**
+**Pros:** Familiar, easy to use, browser caching
+**Cons:** Global scope, naming conflicts possible
 
 </v-click>
 
+</div>
+</div>
+
 ---
 
-# Exercise: TodoInput Component
+# CSS in React: CSS Modules
 
-A form with an input field and submit button
+CSS Modules scope styles to components automatically - no more naming conflicts!
+
+<div class="grid grid-cols-2 gap-4 mt-4">
+<div>
+
+### LoginForm.module.css
+
+```css
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.label {
+  font-weight: bold;
+  color: #333;
+}
+
+.input {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+```
+
+</div>
+<div>
+
+### LoginForm.jsx
 
 ```jsx
-function TodoInput() {
+import styles from './LoginForm.module.css';
+
+function LoginForm() {
   return (
-    <form className="todo-form">
-      <label htmlFor="todo-input">New Task:</label>
+    <form className={styles.form}>
+      <label htmlFor="email" className={styles.label}>
+        Email:
+      </label>
       <input
-        id="todo-input"
-        type="text"
-        placeholder="What needs to be done?"
+        id="email"
+        type="email"
+        className={styles.input}
       />
-      <button type="submit">Add</button>
     </form>
   );
 }
 ```
 
+<v-click>
+
+**Pros:** Scoped styles, no conflicts, co-located
+**Cons:** Slightly more verbose import
+
+</v-click>
+
+</div>
+</div>
+
 ---
 
-# Exercise: TodoItem Component
+# CSS in React: Inline Styles
 
-A single todo item with checkbox, text, and delete button
+Apply styles directly to elements using the `style` prop with a JavaScript object.
+
+<div class="grid grid-cols-2 gap-4 mt-4">
+<div>
+
+### Inline Style Syntax
 
 ```jsx
-function TodoItem() {
+function Profile() {
   return (
-    <div className="todo-item">
-      <input type="checkbox" id="todo-1" />
-      <label htmlFor="todo-1">Sample todo item</label>
-      <button className="btn-delete">Delete</button>
+    <div>
+      <img
+        src="photo.jpg"
+        style={{
+          width: '150px',
+          height: '150px',
+          borderRadius: '50%',
+          objectFit: 'cover'
+        }}
+      />
+      <input
+        type="text"
+        style={{
+          padding: '8px',
+          border: '1px solid #ccc'
+        }}
+      />
     </div>
   );
 }
 ```
 
----
+</div>
+<div>
 
-# Exercise: TodoList Component
-
-Container that renders multiple TodoItem components
+### Key Differences from CSS
 
 ```jsx
-function TodoList() {
+// CSS property names use camelCase
+style={{
+  backgroundColor: 'blue',  // not background-color
+  fontSize: '16px',         // not font-size
+  marginTop: '10px',        // not margin-top
+  zIndex: 100               // numbers without quotes
+}}
+```
+
+<v-click>
+
+**Pros:** No external files, scoped by default
+**Cons:** No pseudo-classes (:hover), no media queries, verbose
+
+</v-click>
+
+</div>
+</div>
+
+---
+
+# CSS in React: Dynamic Styles
+
+Use JavaScript expressions `{}` to apply styles conditionally or dynamically.
+
+<div class="grid grid-cols-2 gap-4 mt-4">
+<div>
+
+### Conditional Classes
+
+```jsx
+function StatusBadge({ status }) {
   return (
-    <div className="todo-list">
-      <TodoItem />
-      <TodoItem />
-      <TodoItem />
+    <span className={`badge badge-${status}`}>
+      {status}
+    </span>
+  );
+}
+
+// With ternary
+function Button({ isPrimary }) {
+  return (
+    <button className={isPrimary
+      ? 'btn btn-primary'
+      : 'btn btn-secondary'
+    }>
+      Click me
+    </button>
+  );
+}
+```
+
+</div>
+<div>
+
+### Dynamic Inline Styles
+
+```jsx
+function ProgressBar({ progress }) {
+  return (
+    <div className="progress-container">
+      <div
+        className="progress-bar"
+        style={{
+          width: `${progress}%`,
+          backgroundColor: progress > 50
+            ? 'green'
+            : 'orange'
+        }}
+      />
     </div>
   );
 }
@@ -1109,14 +1239,88 @@ function TodoList() {
 
 <v-click>
 
-**What's missing?**
-- Items are hardcoded (we'll fix with Props)
-- No interactivity (we'll fix with useState)
-- No data persistence (we'll fix with useEffect)
-
-**We'll add these features after learning Props and Hooks!**
+**Tip:** For complex conditional classes, use the `clsx` or `classnames` library!
 
 </v-click>
+
+</div>
+</div>
+
+---
+
+# CSS in React: Summary
+
+Choose the right styling approach for your project!
+
+| Approach | Use Case | Scoped? | Dynamic? |
+|----------|----------|---------|----------|
+| **External CSS** | Simple projects, global styles | No | Limited |
+| **CSS Modules** | Component-scoped styles | Yes | Limited |
+| **Inline Styles** | Quick prototyping, dynamic values | Yes | Yes |
+| <span style="color: red;">**CSS-in-JS** (styled-components)</span>  | Full-featured, theming | Yes | Yes |
+| <span style="color: red;">**Tailwind CSS**</span> | Utility-first, rapid development | N/A | Yes |
+
+
+---
+layout: center
+---
+
+# Let's write some code
+
+Making a Todo List App in React
+
+---
+layout:  two-cols
+---
+# Todo List: Requirements
+
+<div>
+
+## Features to Implement
+
+1. Add new todos
+2. Display list of todos
+3. Mark todos as complete/incomplete
+4. Delete todos
+5. Filter todos (All / Active / Completed)
+6. Persist todos in localStorage
+
+</div>
+
+::right::
+
+<div class="mt-14 ml-8">
+
+## Concepts We'll Use
+
+- `useState` for managing todos
+- `useEffect` for localStorage
+- Props for passing data
+- Event handling
+- Conditional rendering
+- Array methods (map, filter)
+
+</div>
+
+---
+
+# Let's get started
+
+- Boot up a new project using Vite
+- Create basic components with JSX
+- Write some CSS
+
+## What we'll cover next
+- React Props
+- React hooks
+
+---
+layout: center
+---
+
+# Props
+
+Passing Data Between Components
 
 ---
 
