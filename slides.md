@@ -48,15 +48,16 @@ htmlAttrs:
 
 # What are we doing today 🚀
 
-- A small Counter Dashboard with vanilla JS and React
+- Build a Counter Dashboard with vanilla JS and React
 - Setup development environment for React
-- Understand how react work
-- Deep dive in virtual dom and JSX
-- Know the different between class vs Functional components
-- Learn React Props
-- Use React hooks like useState, useEffect
-- Simple demo: useState and useEffect
-- Apply those knowledge with todo list
+- Understand what React is and how it works
+- Learn about Virtual DOM and JSX
+- Master JSX rules and styling in React
+- Understand Props and passing data between components
+- Deep dive into React Hooks (useState, useEffect)
+- Learn the difference between Class vs Functional components
+- Build a complete Todo List application
+- Apply all concepts in a real project
 
 ---
 layout: two-cols

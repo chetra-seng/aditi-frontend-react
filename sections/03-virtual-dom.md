@@ -1,4 +1,12 @@
 ---
+layout: center
+---
+
+# Virtual DOM
+
+Understanding React's Secret Weapon
+
+---
 layout: two-cols
 ---
 
