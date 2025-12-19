@@ -1404,7 +1404,7 @@ function Child({ onIncrement }) {
 function Button({ text = "Click me", onClick, variant = "primary" }) {
   return (
     <button
-      className={`btn btn-${variant}`}
+      classame={`btn btn-${variant}`}
       onClick={onClick}
     >
       {text}
@@ -1423,6 +1423,38 @@ function Button({ text = "Click me", onClick, variant = "primary" }) {
 layout: center
 ---
 
+# Back to the Todo List
+
+Applying Props to our Todo List App
+
+---
+
+# What We'll Do Now
+
+## Applying Props Concepts
+
+<v-clicks>
+
+- Pass data from parent to child using props
+- Pass functions as props to handle user actions
+- See how props make components reusable
+
+</v-clicks>
+
+<v-click>
+
+## What's Next
+
+After understanding props, we'll learn **React Hooks**:
+- **useState** - To manage component state (like our todo list data)
+- **useEffect** - To handle side effects (like saving to localStorage)
+
+</v-click>
+
+---
+layout: center
+---
+
 # React Hooks
 
 Making Functional Components Powerful
@@ -1431,12 +1463,26 @@ Making Functional Components Powerful
 
 # What are Hooks?
 
+## Definition
+
+<v-click>
+
+**React Hooks** are special functions that let you "hook into" React features from functional components.
+
+</v-click>
+
 <v-clicks>
 
-- Special functions that let you "hook into" React features
-- Only work in functional components
-- Must be called at the top level (not in loops or conditions)
-- Start with the word "use"
+- Enable state and lifecycle features in <span v-mark="{color: 'red', at: '1'}">functional components</span>
+- Introduced in React 16.8 (February 2019)
+- Allow you to use state and other React features without <span v-mark="{color: 'red', at: '1'}">writing a class</span>
+- All hook names start with the word "use"
+
+</v-clicks>
+
+<v-click>
+
+<div>
 
 ## Common Built-in Hooks
 
@@ -1447,16 +1493,100 @@ Making Functional Components Powerful
 - `useMemo` - Memoize expensive calculations
 - `useCallback` - Memoize functions
 
-Today we'll focus on **useState** and **useEffect**
+</div>
+
+</v-click>
+
+---
+
+# Rules of Hooks
+
+## Rule 1: Only Call Hooks at the Top Level
+
+<v-clicks>
+
+- **Don't** call Hooks inside loops, conditions, or nested functions
+- Always use Hooks at the top level of your React function
+- This ensures Hooks are called in the same order each time a component renders
 
 </v-clicks>
+
+<v-click>
+
+```jsx
+// ❌ Wrong
+if (condition) {
+  const [state, setState] = useState(0);
+}
+
+// ✅ Correct
+const [state, setState] = useState(0);
+if (condition) {
+  // use state here
+}
+```
+
+</v-click>
+
+---
+
+# Rules of Hooks
+
+## Rule 2: Only Call Hooks from React Functions
+
+<v-clicks>
+
+- **✅ Call Hooks** from React functional components
+- **✅ Call Hooks** from custom Hooks (functions that start with "use")
+- **❌ Don't call Hooks** from regular JavaScript functions
+- **❌ Don't call Hooks** from class components
+
+</v-clicks>
+
+<v-click>
+
+```jsx
+// ❌ Wrong - regular function
+function calculateTotal() {
+  const [total, setTotal] = useState(0); // Can't use hooks here!
+  return total;
+}
+// ✅ Correct - React component
+function ShoppingCart() {
+  const [total, setTotal] = useState(0); // OK!
+  return <div>Total: {total}</div>;
+}
+// ✅ Correct - custom Hook
+function useTotal() {
+  const [total, setTotal] = useState(0); // OK!
+  return [total, setTotal];
+}
+```
+
+</v-click>
 
 ---
 
 # useState Hook
 
 Managing state in functional components
+````md magic-move {at:1}
+```jsx
+import { useState } from "react";
 
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+      <button onClick={() => setCount(count - 1)}>Decrement</button>
+      <button onClick={() => setCount(0)}>Reset</button>
+    </div>
+  );
+}
+```
 ```jsx
 import { useState } from "react";
 
@@ -1478,6 +1608,45 @@ function Counter() {
   );
 }
 ```
+````
+
+
+---
+
+# What is State in React?
+
+## Definition
+
+<v-click>
+
+**State** is data that changes over time in a component. It represents information that can be updated and affects what the user sees.
+
+</v-click>
+
+<v-clicks>
+
+- State is **mutable** (can be changed)
+- When state changes, React **re-renders** the component
+- Each component has its own state (state is **local**)
+- State persists between re-renders
+
+</v-clicks>
+
+<v-click>
+
+<div class="mt-2">
+
+## Examples of State
+
+- User input in a form field
+- Whether a dropdown is open or closed
+- Items in a shopping cart
+- Current page number in pagination
+- Loading status of an API request
+
+</div>
+
+</v-click>
 
 ---
 
@@ -1513,7 +1682,16 @@ function FormExample() {
 
 # useEffect Hook
 
-Performing side effects in components
+
+<v-click>
+
+## Definition
+
+**useEffect** lets you run code after your component renders. Use it for things like fetching data, setting up timers, or updating the browser.
+
+</v-click>
+
+<v-click>
 
 ```jsx
 import { useState, useEffect } from "react";
@@ -1526,103 +1704,173 @@ function Example() {
     document.title = `You clicked ${count} times`;
   });
 
-  // Runs only once on mount (empty dependency array)
-  useEffect(() => {
-    console.log("Component mounted");
-  }, []);
-
-  // Runs when count changes
-  useEffect(() => {
-    console.log(`Count changed to ${count}`);
-  }, [count]);
-
-  // Cleanup function
-  useEffect(() => {
-    const timer = setInterval(() => console.log("tick"), 1000);
-    return () => clearInterval(timer); // Cleanup on unmount
-  }, []);
-
   return <button onClick={() => setCount(count + 1)}>{count}</button>;
+}
+```
+
+</v-click>
+
+---
+
+# What are Side Effects in React?
+
+## Definition
+
+<v-click>
+
+**Side effects** are operations that affect something outside the scope of the current function being executed. They interact with the "outside world" beyond just returning a value.
+
+</v-click>
+
+<v-clicks>
+
+- Fetching data from an API
+- Setting up subscriptions or timers
+- Manually updating the DOM
+- Reading/writing to localStorage
+- Logging to console
+
+</v-clicks>
+
+<v-click>
+
+## Why useEffect?
+
+React components should be **pure functions** that return JSX based on props and state. Side effects must happen **separately** - that's where `useEffect` comes in!
+
+</v-click>
+
+---
+
+# useEffect Use Case 1: Fetching Data
+
+The most common use of `useEffect` is to fetch data from an API when a component mounts.
+
+```jsx
+import { useState, useEffect } from "react";
+
+function UserList() {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch data when component mounts
+    fetch("https://api.example.com/users")
+      .then((response) => response.json())
+      .then((data) => {
+        setUsers(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching users:", error);
+        setLoading(false);
+      });
+  }, []); // Empty array = run once on mount
+
+  if (loading) return <div>Loading...</div>;
+  return <ul>{users.map(user => <li key={user.id}>{user.name}</li>)}</ul>;
 }
 ```
 
 ---
 
-# useEffect Common Use Cases
+# Fetching Data: Key Points
 
 <v-clicks>
 
-## 1. Fetching Data
-
-```jsx
-useEffect(() => {
-  fetch("https://api.example.com/data")
-    .then((res) => res.json())
-    .then((data) => setData(data));
-}, []);
-```
-
-## 2. Subscriptions
-
-```jsx
-useEffect(() => {
-  const subscription = subscribeToData();
-  return () => subscription.unsubscribe();
-}, []);
-```
-
-## 3. DOM Manipulation
-
-```jsx
-useEffect(() => {
-  const element = document.getElementById("special");
-  element.focus();
-}, []);
-```
+- Empty dependency array `[]` means the effect runs **only once** when the component mounts
+- Perfect for initial data loading
+- Don't forget error handling and loading states!
 
 </v-clicks>
 
 ---
 
-# Live Demo: useState & useEffect
+# useEffect Use Case 2: Subscriptions & Timers
 
-Let's build a simple user profile component together
+When you set up subscriptions or timers, you must **clean them up** to prevent memory leaks.
 
-```jsx {all|1-2|4-6|8-13|15-17|19-30|all}
+```jsx
 import { useState, useEffect } from "react";
 
-function UserProfile() {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+function LiveClock() {
+  const [time, setTime] = useState(new Date());
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users/1")
-      .then((res) => res.json())
-      .then((data) => setUser(data))
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
-  }, []);
+    console.log("Setting up timer...");
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+    // Set up a timer that updates every second
+    const timerId = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+
+    // Cleanup function - runs when component unmounts
+    return () => {
+      console.log("Cleaning up timer...");
+      clearInterval(timerId);
+    };
+  }, []); // Empty array = run once on mount
+
+  return <div>Current time: {time.toLocaleTimeString()}</div>;
+}
+```
+
+---
+
+# Subscriptions & Timers: Key Points
+
+<v-clicks>
+
+- The **return function** is the cleanup - it runs before the component unmounts or before the effect re-runs
+- Always clean up subscriptions, timers, and event listeners
+- Prevents memory leaks and unexpected behavior!
+
+</v-clicks>
+
+---
+
+# useEffect Use Case 3: DOM Manipulation
+
+Sometimes you need to directly interact with DOM elements - like focusing an input or integrating with third-party libraries.
+
+```jsx
+import { useEffect, useRef } from "react";
+
+function SearchBox() {
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    // Focus the input when component mounts
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []); // Run once on mount
 
   return (
     <div>
-      <h2>{user.name}</h2>
-      <p>Email: {user.email}</p>
-      <p>Phone: {user.phone}</p>
-      <button
-        onClick={() => {
-          setUser({ ...user, name: "Updated Name" });
-        }}
-      >
-        Update Name
-      </button>
+      <label htmlFor="search">Search:</label>
+      <input
+        ref={inputRef}
+        id="search"
+        type="text"
+        placeholder="Type to search..."
+      />
     </div>
   );
 }
 ```
+
+---
+
+# DOM Manipulation: Key Points
+
+<v-clicks>
+
+- Use `useRef` to get a reference to DOM elements
+- `useEffect` ensures the DOM is ready before manipulation
+- Common use cases: focus management, scrolling, integrating third-party DOM libraries
+
+</v-clicks>
 
 ---
 
