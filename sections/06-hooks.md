@@ -378,10 +378,7 @@ useEffect(() => {
 - Update chart when data changes
 - Fetch user details when userId changes
 - Validate form when input values change
-
-## ⚠️ Important Rule
-Include **ALL** values from component scope that you use inside the effect!
-
+  
 </v-clicks>
 
 ---
