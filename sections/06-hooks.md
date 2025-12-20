@@ -289,6 +289,179 @@ React components should be **pure functions** that return JSX based on props and
 
 ---
 
+# Types of useEffect
+
+There are **3 main patterns** based on the dependency array
+
+<v-clicks>
+
+1. **No Dependency Array** - Runs after every render
+2. **Empty Array `[]`** - Runs once on mount
+3. **With Dependencies `[dep1, dep2]`** - Runs on mount + when dependencies change
+
+</v-clicks>
+
+---
+
+# Type 1: No Dependency Array
+
+Runs on **initial render** and after **every re-render**
+
+```jsx
+useEffect(() => {
+  console.log('Runs after every render');
+});
+```
+
+<v-clicks>
+
+## When to Use
+- **Rare use case** - usually indicates a problem
+- ⚠️ **Warning:** Can cause performance issues and infinite loops
+- **Example:** Debugging/logging every render
+
+## Why It's Rare
+- Most effects don't need to run on every render
+- Can trigger unnecessary work
+- Better to use dependencies to control when effect runs
+
+</v-clicks>
+
+---
+
+# Type 2: Empty Dependency Array `[]`
+
+Runs **only once** on initial mount
+
+```jsx
+useEffect(() => {
+  console.log('Runs only on mount');
+}, []);
+```
+
+<v-clicks>
+
+## When to Use
+- **Common pattern** for setup that happens once
+- Perfect for initial data loading
+- Setting up event listeners or subscriptions
+
+## Examples
+- Fetching data when component first loads
+- Setting up WebSocket connections
+- Adding window event listeners
+- Initializing third-party libraries
+
+</v-clicks>
+
+---
+
+# Type 3: With Dependencies `[dep1, dep2]`
+
+Runs on **initial mount** + whenever **dependencies change**
+
+```jsx
+useEffect(() => {
+  console.log('Count changed:', count);
+}, [count]);
+```
+
+<v-clicks>
+
+## When to Use
+- **Most common pattern** in real applications
+- Responding to specific state or prop changes
+- Running effects only when certain values update
+
+## Examples
+- Search API when search query changes
+- Update chart when data changes
+- Fetch user details when userId changes
+- Validate form when input values change
+
+## ⚠️ Important Rule
+Include **ALL** values from component scope that you use inside the effect!
+
+</v-clicks>
+
+---
+
+# useEffect Patterns Explained
+
+````md magic-move {at:1}
+```jsx
+import { useState, useEffect } from "react";
+
+function Example() {
+  const [count, setCount] = useState(0);
+  const [name, setName] = useState('');
+
+  // Type 1: No dependency array - runs after EVERY render
+  useEffect(() => {
+    console.log('Component rendered');
+  });
+
+  return <div>{count}</div>;
+}
+```
+
+```jsx
+import { useState, useEffect } from "react";
+
+function Example() {
+  const [count, setCount] = useState(0);
+  const [name, setName] = useState('');
+
+  // Type 2: Empty array [] - runs ONCE on mount
+  useEffect(() => {
+    console.log('Component mounted');
+  }, []);
+
+  return <div>{count}</div>;
+}
+```
+
+```jsx
+import { useState, useEffect } from "react";
+
+function Example() {
+  const [count, setCount] = useState(0);
+  const [name, setName] = useState('');
+
+  // Type 3: With dependencies - runs when count changes
+  useEffect(() => {
+    console.log('Count changed:', count);
+  }, [count]); // Only re-runs when count changes
+
+  return <div>{count}</div>;
+}
+```
+````
+
+---
+
+# When to Use Each Type
+
+<v-clicks>
+
+## Type 1: No Dependencies (Rare)
+- **Use when:** You need to run after every render
+- **⚠️ Warning:** Can cause performance issues
+- **Example:** Logging every render for debugging
+
+## Type 2: Empty Array `[]` (Common)
+- **Use when:** Setup that runs once
+- **Examples:** API calls, event listeners, subscriptions
+
+## Type 3: With Dependencies (Most Common)
+- **Use when:** Responding to specific changes
+- **Examples:** Search when query changes, update chart when data changes
+- **⚠️ Important:** Include ALL values from component scope used in the effect
+
+</v-clicks>
+
+---
+
 # useEffect Use Case 1: Fetching Data
 
 The most common use of `useEffect` is to fetch data from an API when a component mounts.
